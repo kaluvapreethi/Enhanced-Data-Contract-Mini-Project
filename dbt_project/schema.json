@@ -1,0 +1,58 @@
+version: 2
+
+sources:
+  - name: raw
+    database: my_database
+    schema: my_schema
+    tables:
+      - name: events_csv
+        description: "A table containing raw user event data loaded from a CSV file."
+        columns:
+          - name: user_id
+            tests:
+              - not_null
+          - name: event_type
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['page_view', 'click', 'purchase']
+          - name: event_timestamp
+            tests:
+              - not_null
+          - name: session_info
+            tests:
+              - not_null
+      - name: profiles_csv
+        description: "A table containing raw user profile data."
+        columns:
+          - name: user_id
+            tests:
+              - not_null
+          - name: signup_date
+            tests:
+              - not_null
+          - name: country
+            tests:
+              - not_null
+
+models:
+  - name: fact_pageviews
+    description: "A fact table containing user pageview events enriched with user profile data."
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: event_timestamp
+        tests:
+          - not_null
+      - name: country
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['US', 'CA', 'GB', 'DE']
+      - name: email_opt_in
+        tests:
+          - not_null
+
+
+

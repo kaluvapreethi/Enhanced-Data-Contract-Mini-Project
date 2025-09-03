@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "title": "User Profile Contract",
+  "description": "The contract for user profile data.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Unique identifier for the user.",
+      "minLength": 1
+    },
+    "signup_date": {
+      "type": "string",
+      "description": "The date the user signed up.",
+      "format": "date"
+    },
+    "country": {
+      "type": "string",
+      "description": "The country of the user.",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "email_opt_in": {
+      "type": ["boolean", "null"],
+      "description": "User's email opt-in preference."
+    }
+  },
+  "required": ["user_id", "signup_date", "country"]
+}

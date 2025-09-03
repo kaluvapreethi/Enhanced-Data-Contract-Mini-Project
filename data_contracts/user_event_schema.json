@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "title": "User Event Contract",
+  "description": "The contract for raw user events.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Unique identifier for the user.",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "description": "The type of event (e.g., 'page_view', 'click', 'purchase').",
+      "enum": ["page_view", "click", "purchase"]
+    },
+    "event_timestamp": {
+      "type": "integer",
+      "description": "Timestamp of the event in milliseconds.",
+      "minimum": 1609459200000
+    },
+    "session_info": {
+      "type": "object",
+      "description": "Details about the user's session.",
+      "properties": {
+        "session_id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["web", "mobile"]
+        }
+      },
+      "required": ["session_id", "source"]
+    },
+    "purchase_amount": {
+      "type": ["number", "null"],
+      "description": "The purchase amount for 'purchase' events."
+    }
+  },
+  "required": ["user_id", "event_type", "event_timestamp", "session_info"]
+}

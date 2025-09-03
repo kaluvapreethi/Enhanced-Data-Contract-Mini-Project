@@ -1,0 +1,3 @@
+dbt-core 
+dbt-postgres # Or dbt-<your_database> 
+great-expectations
