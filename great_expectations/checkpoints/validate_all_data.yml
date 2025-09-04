@@ -1,28 +1,23 @@
 name: validate_all_data
-config_version: 1
+config_version: 1.0
 class_name: SimpleCheckpoint
-run_name_template: "%Y%m%d-%H%M%S-all-data-validation"
-action_list:
-  - name: store_validation_result
-    action:
-      class_name: StoreValidationResultAction
-  - name: update_data_docs
-    action:
-      class_name: UpdateDataDocsAction
-      site_names: []
+run_name_template: "%Y%m%d-%H%M%S-my-run"
 validations:
   - batch_request:
-      datasource_name: my_datasource
-      data_connector_name: default_runtime_data_connector_name
-      data_asset_name: raw_events_asset
+      datasource_name: my_filesystem_datasource
+      data_asset_name: raw_events.csv
+      batch_spec_passthrough:
+        path: mock_data/raw_events.csv
     expectation_suite_name: raw_events_contract
   - batch_request:
-      datasource_name: my_datasource
-      data_connector_name: default_runtime_data_connector_name
-      data_asset_name: raw_profiles_asset
+      datasource_name: my_filesystem_datasource
+      data_asset_name: raw_profiles.csv
+      batch_spec_passthrough:
+        path: mock_data/raw_profiles.csv
     expectation_suite_name: raw_profiles_contract
   - batch_request:
-      datasource_name: my_datasource
-      data_connector_name: default_runtime_data_connector_name
-      data_asset_name: fact_pageviews_asset
+      datasource_name: my_filesystem_datasource
+      data_asset_name: fact_pageviews.csv
+      batch_spec_passthrough:
+        path: dbt_project/fact_pageviews.csv
     expectation_suite_name: fact_pageviews_contract
